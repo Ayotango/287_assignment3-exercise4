@@ -3,7 +3,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const ejs = require('ejs');
 const { calculateAverage, generateUniqueID, capitalizeWords, sortArrayByProperty } = require('./utils/helpers');
 
