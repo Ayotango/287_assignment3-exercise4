@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find A Paw</title>
+    <link rel="stylesheet" href="public/css/rp_style.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <main>
+        <div class="container">
+            <nav class="navbar">
+                <ul class="list">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/browse.html">Browse Available Pets</a></li>
+                    <li><a href="/find.html">Find A Paw</a></li>
+                    <li><a href="/dog.html">Dog Care</a></li>
+                    <li><a href="/cat.html">Cat Care</a></li>
+                    <li><a href="/give.html">Have A Pet To Give Away?</a></li>
+                    <li><a href="/contact.html">Contact Us</a></li>
+                    <li><a href="/privacy.html">Privacy Statement</a></li>
+                </ul>            
+            </nav>
+            <div class="main-content">
+                <fieldset class="form">
+                    <legend>Find a Paw</legend>
+                    <form id="find-form" method="post" action="/find-results">
+                        <div>
+                            <label class="spaced-text">Pet:</label>
+                            <input type="radio" id="dog" name="pet" class="circle-checkbox" value="dog">
+                            <label for="dog">Dog</label>
+                            <input type="radio" id="cat" name="pet" class="circle-checkbox" value="cat">
+                            <label for="cat">Cat</label>
+                        </div>
+                        <label for="breed">Breed:</label>
+                        <input type="text" id="breed" name="breed">
+                        <input type="radio" id="nobreed" name="breed-option" class="circle-checkbox" value="nobreed">
+                        <label for="nobreed">Doesn't matter</label>
+                        <br>
+                        <label>Preferred age:</label>
+                        <select name="age-category" id="age-category">
+                            <option value="">Select age</option>
+                            <option>1 year old</option>
+                            <option>2 years old</option>
+                            <option>3 years old</option>
+                            <option>4 years old</option>
+                            <option>5 years old</option>
+                            <option>6 years old</option>
+                            <option>7 years old</option>
+                            <option>8 years old</option>
+                            <option>9 years old</option>
+                            <option>10 years old</option>
+                            <option>11 years old</option>
+                            <option>12 years old</option>
+                            <option>13 years old</option>
+                            <option>14 years old</option>
+                            <option>15 years old</option>
+                            <option>16 years old</option>
+                            <option>17 years old</option>
+                            <option>18 years old</option>
+                            <option>19 years old</option>
+                            <option>20 years old</option>
+                            <option>Doesn't matter</option>
+                        </select>
+                        <br>
+                        <label>Preferred gender:</label>
+                        <select name="gender" id="gender">
+                            <option value="">Select gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                        <br>
+                        <label>Does the pet need to be able to get along with other pets and/or small children?</label>
+                        <input type="radio" id="yes" name="get-along" class="circle-checkbox" value="yes">
+                        <label for="yes">Yes</label>
+                        <input type="radio" id="no" name="get-along" class="circle-checkbox" value="no">
+                        <label for="no">No</label>
+                        <br>
+                        <input type="submit" value="Submit" style="margin-left: 20px;">
+                        <input type="reset" value="Reset">
+                        <p id="error-message" class="error" style="display:none;">Please fill out all fields!</p>
+                    </form>
+                </fieldset>
+
+                <% if (filteredPets && filteredPets.length > 0) { %>
+                    <div class="search-results">
+                        <h2>Search Results</h2>
+                        <ul class="cards">
+                            <% filteredPets.forEach(pet => { %>
+                                <li>
+                                    <h2><%= pet.name %></h2>
+                                    <div class="inner">
+                                        <img class="browse-pet" src="<%= pet.image %>" alt="<%= pet.name %>">
+                                        <p>
+                                            Pet: <%= pet.petType %><br>
+                                            Breed: <%= pet.breed %><br>
+                                            Age: <%= pet.age %><br>
+                                            Gender: <%= pet.gender %><br>
+                                            Gets along with other dogs? <%= pet.getAlongWithDogs ? 'Yes' : 'No' %><br>
+                                            Gets along with other cats? <%= pet.getAlongWithCats ? 'Yes' : 'No' %><br>
+                                            Suitable for families with small children? <%= pet.getAlongWithChildren ? 'Yes' : 'No' %>
+                                        </p>
+                                    </div>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                <% } else if (filteredPets && filteredPets.length === 0) { %>
+                    <p>No pets found matching your criteria.</p>
+                <% } %>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <%- include('partials/footer') %>
+</body>
+</html>
